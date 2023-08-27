@@ -22,7 +22,7 @@ function AddNewNote({ onAddNote }) {
   return (
     <div className="flex flex-col items-center gap-6">
       <h2 className="font-bold text-2xl">Add new note</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}

@@ -1,7 +1,24 @@
-function NoteList({ notes, onDelete, onCheck }) {
+function NoteList({ notes, onDelete, onCheck, sortBy }) {
+  let sortedNotes = notes;
+
+  if (sortBy === "earliest")
+    sortedNotes = [...notes].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+  if (sortBy === "latest")
+    sortedNotes = [...notes].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+  if (sortBy === "completed")
+    sortedNotes = [...notes].sort(
+      (a, b) => Number(a.completed) - Number(b.completed)
+    );
+
   return (
     <div className="space-y-5">
-      {notes.map((n) => (
+      {sortedNotes.map((n) => (
         <NoteItem key={n.id} note={n} onDelete={onDelete} onCheck={onCheck} />
       ))}
     </div>
@@ -20,12 +37,16 @@ function NoteItem({ note, onDelete, onCheck }) {
   return (
     <div className="flex flex-col gap-2 w-full bg-white p-4 rounded-lg">
       {/* note item header */}
-      <div className="flex justify-between items-center border-b pb-2">
+      <div className="flex justify-between items-start lg:items-center border-b pb-2">
         <div className={`${note.completed ? "line-through opacity-50" : ""}`}>
           {/* title */}
-          <p className="font-bold text-lg break-words">{note.title}</p>
+          <p className="font-bold text-lg max-w-[12rem] sm:max-w-lg md:max-w-xl md:mr-4 break-words">
+            {note.title}
+          </p>
           {/* description */}
-          <p className="opacity-60 break-words">{note.description}</p>
+          <p className="opacity-60 max-w-[12rem] sm:max-w-lg md:max-w-xl md:mr-4 break-words ">
+            {note.description}
+          </p>
         </div>
         <div className="space-x-4 flex items-center">
           <button onClick={() => onDelete(note.id)}>❌</button>

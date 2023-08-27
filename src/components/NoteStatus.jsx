@@ -1,3 +1,5 @@
+import Message from "./Message";
+
 function NoteStatus({ notes }) {
   const allNotes = notes.length;
   const completedNotes = notes.filter((n) => n.completed).length;
@@ -5,9 +7,11 @@ function NoteStatus({ notes }) {
 
   if (!allNotes)
     return (
-      <h2 className="text-center font-semibold text-xl lg:text-2xl">
-        No note has been added yet
-      </h2>
+      <Message>
+        <p className="text-center font-semibold text-xl lg:text-2xl">
+          ℹ️No notes has been added yet
+        </p>
+      </Message>
     );
 
   return (
