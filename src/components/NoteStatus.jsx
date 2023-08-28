@@ -9,7 +9,7 @@ function NoteStatus({ notes }) {
     return (
       <Message>
         <p className="text-center font-semibold text-xl lg:text-2xl">
-          ℹ️No notes has been added yet
+          ℹ️هیچ یادداشتی در حال حاضر وجود ندارد
         </p>
       </Message>
     );
@@ -17,21 +17,21 @@ function NoteStatus({ notes }) {
   return (
     <ul className="flex items-center justify-between py-2 px-6 w-full opacity-50 font-semibold mb-4 text-xs sm:text-base">
       <li>
-        All{" "}
+        تکمیل نشده{" "}
         <span className="bg-slate-600 text-white px-2 py-0.5 rounded-full">
-          {allNotes}
+          {openNotes}
         </span>
       </li>
       <li>
-        Completed{" "}
+        تکمیل شده{" "}
         <span className="bg-slate-600 text-white px-2 py-0.5 rounded-full">
           {completedNotes}
         </span>
       </li>
       <li>
-        Open{" "}
+        همه{" "}
         <span className="bg-slate-600 text-white px-2 py-0.5 rounded-full">
-          {openNotes}
+          {allNotes}
         </span>
       </li>
     </ul>

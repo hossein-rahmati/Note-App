@@ -37,7 +37,7 @@ function NoteItem({ note, onDelete, onCheck }) {
   return (
     <div className="flex flex-col gap-2 w-full bg-white p-4 rounded-lg">
       {/* note item header */}
-      <div className="flex justify-between items-start lg:items-center border-b pb-2">
+      <div className="flex justify-between items-start border-b pb-2">
         <div className={`${note.completed ? "line-through opacity-50" : ""}`}>
           {/* title */}
           <p className="font-bold text-lg max-w-[12rem] sm:max-w-lg md:max-w-xl md:mr-4 break-words">
@@ -48,7 +48,7 @@ function NoteItem({ note, onDelete, onCheck }) {
             {note.description}
           </p>
         </div>
-        <div className="space-x-4 flex items-center">
+        <div className="flex items-center justify-between gap-4">
           <button onClick={() => onDelete(note.id)}>❌</button>
           <input
             onChange={onCheck}
