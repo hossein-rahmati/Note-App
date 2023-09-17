@@ -1,26 +1,45 @@
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import AddNewNote from "./components/AddNewNote";
 import NoteList from "./components/NoteList";
 import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 
+let INITIAL_STATE;
+function noteReducer(state, { type, payload }) {
+  switch (type) {
+    case "add":
+      return [...state, payload];
+      break;
+    case "delete":
+      return state.filter((n) => n.id !== payload);
+      break;
+    case "check":
+      return state.map((note) =>
+        note.id === payload ? { ...note, completed: !note.completed } : state
+      );
+      break;
+    default:
+      throw new Error("unknown action " + type);
+  }
+}
+
 function App() {
-  const [notes, setNotes] = useState([]);
+  const [notes, dispatch] = useReducer(noteReducer, INITIAL_STATE);
   const [sortBy, setSortBy] = useState("latest");
 
+  useEffect(() => {
+    INITIAL_STATE = localStorage.getItem("NOTES") || [];
+  }, []);
+
   const handleAddNote = (newNote) => {
-    setNotes((prevNotes) => [...prevNotes, newNote]);
+    dispatch({ type: "add", payload: newNote });
   };
   const handleDeleteNote = (id) => {
-    setNotes((prevNotes) => prevNotes.filter((n) => n.id !== id));
+    dispatch({ type: "delete", payload: id });
   };
   const handleCheckNote = (e) => {
     const noteId = Number(e.target.value);
-    setNotes((prevNotes) =>
-      prevNotes.map((note) =>
-        note.id === noteId ? { ...note, completed: !note.completed } : note
-      )
-    );
+    dispatch({ type: "check", payload: noteId });
   };
 
   return (

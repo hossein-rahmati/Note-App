@@ -5,14 +5,7 @@ function NoteStatus({ notes }) {
   const completedNotes = notes.filter((n) => n.completed).length;
   const openNotes = allNotes - completedNotes;
 
-  if (!allNotes)
-    return (
-      <Message>
-        <p className="text-center font-semibold text-xl lg:text-2xl">
-          ℹ️هیچ یادداشتی در حال حاضر وجود ندارد
-        </p>
-      </Message>
-    );
+  if (!allNotes) return <Message>هیچ یادداشتی در حال حاضر وجود ندارد</Message>;
 
   return (
     <ul className="flex items-center justify-between py-2 px-6 w-full opacity-50 font-semibold mb-4 text-xs sm:text-base">

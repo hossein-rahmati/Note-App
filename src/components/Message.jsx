@@ -1,5 +1,7 @@
 function Message({ children }) {
-  return <p>{children}</p>;
+  return (
+    <p className="text-center font-semibold text-xl lg:text-2xl">{children}</p>
+  );
 }
 
 export default Message;
