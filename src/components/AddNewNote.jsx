@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function AddNewNote({ onAddNote }) {
+function AddNewNote({ onAddNote, translate }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !description) {
-      toast.info("لطفا هردو فیلد را پر کنید");
+      toast.info(translate("addNewNote.toastInfo"));
       return;
     }
     const newNote = {
@@ -22,29 +22,29 @@ function AddNewNote({ onAddNote }) {
     onAddNote(newNote);
     setDescription("");
     setTitle("");
-    toast.success("!یادداشت با موفقیت اضافه شد");
+    toast.success(translate("addNewNote.toastSuccess"));
   };
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <h2 className="font-bold text-2xl">اضافه کردن یادداشت جدید</h2>
+      <h2 className="font-bold text-2xl">{translate("addNewNote.header")}</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="عنوان"
+          placeholder={translate("addNewNote.titlePlaceHolder")}
           className="p-2 rounded-md font-medium"
           type="text"
         />
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="متن یادداشت..."
+          placeholder={translate("addNewNote.descritptionPlaceHolder")}
           className="p-2 rounded-md font-medium"
           type="text"
         />
         <button type="submit" className="btn-primary">
-          افزودن
+          {translate("addNewNote.addButton")}
         </button>
         <ToastContainer autoClose={2500} />
       </form>

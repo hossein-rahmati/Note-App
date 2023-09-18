@@ -3,6 +3,7 @@ import AddNewNote from "./components/AddNewNote";
 import NoteList from "./components/NoteList";
 import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
+import { useTranslation } from "react-i18next";
 
 const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
 function noteReducer(state, action) {
@@ -30,6 +31,7 @@ function noteReducer(state, action) {
 function App() {
   const [notes, dispatch] = useReducer(noteReducer, INITIAL_STATE);
   const [sortBy, setSortBy] = useState("latest");
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -45,6 +47,10 @@ function App() {
     const noteId = Number(e.target.value);
     dispatch({ type: "check", payload: noteId });
   };
+  const handleTranslate = (code) => {
+    i18n.changeLanguage(code);
+    localStorage.setItem("lang", code);
+  };
 
   return (
     <div>
@@ -53,17 +59,19 @@ function App() {
         notes={notes}
         sortBy={sortBy}
         onSort={(e) => setSortBy(e.target.value)}
+        onTranslate={handleTranslate}
+        translate={t}
       />
 
       {/* body components */}
       <div className="container m-auto max-w-3xl min-h-screen flex flex-col justify-center gap-16 p-4 lg:flex-row">
         {/* new note form */}
         <div>
-          <AddNewNote onAddNote={handleAddNote} />
+          <AddNewNote onAddNote={handleAddNote} translate={t} />
         </div>
         {/* note list container */}
         <div className="flex-1 max-w-3xl">
-          <NoteStatus notes={notes} />
+          <NoteStatus notes={notes} translate={t} />
           <NoteList
             notes={notes}
             sortBy={sortBy}
