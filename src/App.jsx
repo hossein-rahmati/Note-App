@@ -4,20 +4,24 @@ import NoteList from "./components/NoteList";
 import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 
-let INITIAL_STATE;
-function noteReducer(state, { type, payload }) {
-  switch (type) {
-    case "add":
-      return [...state, payload];
-      break;
+const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
+function noteReducer(state, action) {
+  switch (action.type) {
+    case "add": {
+      return [...state, action.payload];
+    }
+
     case "delete":
-      return state.filter((n) => n.id !== payload);
-      break;
+      return state.filter((n) => n.id !== action.payload);
+
     case "check":
       return state.map((note) =>
-        note.id === payload ? { ...note, completed: !note.completed } : state
+        note.id === action.payload
+          ? { ...note, completed: !note.completed }
+          : note
       );
       break;
+
     default:
       throw new Error("unknown action " + type);
   }
@@ -28,8 +32,8 @@ function App() {
   const [sortBy, setSortBy] = useState("latest");
 
   useEffect(() => {
-    INITIAL_STATE = localStorage.getItem("NOTES") || [];
-  }, []);
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const handleAddNote = (newNote) => {
     dispatch({ type: "add", payload: newNote });
