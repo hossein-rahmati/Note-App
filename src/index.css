@@ -16,11 +16,6 @@
 }
 
 @font-face {
-  font-family: "BYekan";
-  src: url(./fonts/BYekan+.ttf);
-}
-
-@font-face {
-  font-family: "BYekan-Bold";
-  src: url(./fonts/BYekan+\ Bold.ttf);
+  font-family: vazir;
+  src: url("./fonts/Vazir.ttf");
 }

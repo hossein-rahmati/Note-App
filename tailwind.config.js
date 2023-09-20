@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["BYekan", ...defaultTheme.fontFamily.sans],
+        sans: ["vazir", ...defaultTheme.fontFamily.sans],
       },
     },
   },
