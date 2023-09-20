@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 
 //TODO:
 // change direction based on language
-// change the font
+// change the font ✅
 // change the toast ✅
 // add dark mode
 
@@ -60,7 +60,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="font-sans">
       <Toaster />
       {/* Header component */}
       <NoteHeader
@@ -72,7 +72,7 @@ function App() {
       />
 
       {/* body components */}
-      <div className="container m-auto max-w-3xl min-h-screen flex flex-col justify-center gap-16 p-4 lg:flex-row">
+      <div className="container m-auto max-w-3xl min-h-screen flex flex-col justify-center gap-16 p-4 lg:flex-row ">
         {/* new note form */}
         <div>
           <AddNewNote onAddNote={handleAddNote} translate={t} />

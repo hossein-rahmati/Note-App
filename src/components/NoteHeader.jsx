@@ -22,7 +22,7 @@ function NoteHeader({ notes, sortBy, onSort, onTranslate, translate }) {
           })}
         </div>
         <h2 className="text-xl font-bold">
-          {translate("myNotes")}({notes.length})
+          {translate("myNotes")} ({notes.length})
         </h2>
         <select
           className="border border-gray-300 bg-white text-gray-900 rounded-lg focus:ring-blue-500 p-2"
