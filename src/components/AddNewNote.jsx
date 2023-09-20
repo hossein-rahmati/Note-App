@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import toast from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 
 function AddNewNote({ onAddNote, translate }) {
@@ -8,7 +8,7 @@ function AddNewNote({ onAddNote, translate }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !description) {
-      toast.info(translate("addNewNote.toastInfo"));
+      toast.error(translate("addNewNote.toastInfo"));
       return;
     }
     const newNote = {
@@ -46,7 +46,6 @@ function AddNewNote({ onAddNote, translate }) {
         <button type="submit" className="btn-primary">
           {translate("addNewNote.addButton")}
         </button>
-        <ToastContainer autoClose={2500} />
       </form>
     </div>
   );

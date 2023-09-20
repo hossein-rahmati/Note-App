@@ -4,6 +4,13 @@ import NoteList from "./components/NoteList";
 import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 import { useTranslation } from "react-i18next";
+import { Toaster } from "react-hot-toast";
+
+//TODO:
+// change direction based on language
+// change the font
+// change the toast ✅
+// add dark mode
 
 const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
 function noteReducer(state, action) {
@@ -54,6 +61,7 @@ function App() {
 
   return (
     <div>
+      <Toaster />
       {/* Header component */}
       <NoteHeader
         notes={notes}
