@@ -1,4 +1,4 @@
-function NoteList({ notes, onDelete, onCheck, sortBy }) {
+function NoteList({ notes, onDelete, onCheck, sortBy, darkMode }) {
   let sortedNotes = notes;
 
   if (sortBy === "earliest")
@@ -19,7 +19,13 @@ function NoteList({ notes, onDelete, onCheck, sortBy }) {
   return (
     <div className="space-y-5">
       {sortedNotes.map((n) => (
-        <NoteItem key={n.id} note={n} onDelete={onDelete} onCheck={onCheck} />
+        <NoteItem
+          key={n.id}
+          note={n}
+          onDelete={onDelete}
+          onCheck={onCheck}
+          darkMode={darkMode}
+        />
       ))}
     </div>
   );
@@ -27,7 +33,7 @@ function NoteList({ notes, onDelete, onCheck, sortBy }) {
 
 export default NoteList;
 
-function NoteItem({ note, onDelete, onCheck }) {
+function NoteItem({ note, onDelete, onCheck, darkMode }) {
   const options = {
     year: "numeric",
     month: "long",
@@ -35,7 +41,11 @@ function NoteItem({ note, onDelete, onCheck }) {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full bg-white p-4 rounded-lg">
+    <div
+      className={`flex flex-col gap-2 w-full  p-4 rounded-lg ${
+        darkMode ? "bg-gray-700" : "bg-white"
+      }`}
+    >
       {/* note item header */}
       <div className="flex justify-between items-start border-b pb-2">
         <div className={`${note.completed ? "line-through opacity-50" : ""}`}>
@@ -48,7 +58,7 @@ function NoteItem({ note, onDelete, onCheck }) {
             {note.description}
           </p>
         </div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex gap-4">
           <button onClick={() => onDelete(note.id)}>❌</button>
           <input
             onChange={onCheck}

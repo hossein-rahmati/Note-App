@@ -39,6 +39,9 @@ function noteReducer(state, action) {
 function App() {
   const [notes, dispatch] = useReducer(noteReducer, INITIAL_STATE);
   const [sortBy, setSortBy] = useState("latest");
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") || false
+  );
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
@@ -49,6 +52,10 @@ function App() {
     const dir = i18n.dir(i18n.language);
     document.documentElement.dir = dir;
   }, [i18n, i18n.language]);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   const handleAddNote = (newNote) => {
     dispatch({ type: "add", payload: newNote });
@@ -64,9 +71,12 @@ function App() {
     i18n.changeLanguage(code);
     localStorage.setItem("lang", code);
   };
+  const handleDarkModeToggle = () => {
+    setDarkMode((prev) => !prev);
+  };
 
   return (
-    <div className="font-sans">
+    <div className={`font-sans ${darkMode ? "dark" : ""}`}>
       <Toaster />
       {/* Header component */}
       <NoteHeader
@@ -75,13 +85,21 @@ function App() {
         onSort={(e) => setSortBy(e.target.value)}
         onTranslate={handleTranslate}
         translate={t}
+        darkMode={darkMode}
+        onDarkModeToggle={handleDarkModeToggle}
       />
 
       {/* body components */}
-      <div className="container m-auto max-w-3xl min-h-screen flex flex-col justify-center gap-16 p-4 lg:flex-row ">
+      <div
+        className={`container m-auto max-w-3xl min-h-screen flex flex-col justify-center gap-16 p-4 lg:flex-row `}
+      >
         {/* new note form */}
         <div>
-          <AddNewNote onAddNote={handleAddNote} translate={t} />
+          <AddNewNote
+            onAddNote={handleAddNote}
+            translate={t}
+            darkMode={darkMode}
+          />
         </div>
         {/* note list container */}
         <div className="flex-1 max-w-3xl">
@@ -91,6 +109,7 @@ function App() {
             sortBy={sortBy}
             onDelete={handleDeleteNote}
             onCheck={handleCheckNote}
+            darkMode={darkMode}
           />
         </div>
       </div>
