@@ -7,10 +7,11 @@ import { useTranslation } from "react-i18next";
 import { Toaster } from "react-hot-toast";
 
 //TODO:
-// change direction based on language
+// change direction based on language ✅
 // change the font ✅
 // change the toast ✅
 // add dark mode
+// fix responsive styles
 
 const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
 function noteReducer(state, action) {
@@ -43,6 +44,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
+
+  useEffect(() => {
+    const dir = i18n.dir(i18n.language);
+    document.documentElement.dir = dir;
+  }, [i18n, i18n.language]);
 
   const handleAddNote = (newNote) => {
     dispatch({ type: "add", payload: newNote });
