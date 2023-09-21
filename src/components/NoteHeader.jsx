@@ -11,12 +11,14 @@ function NoteHeader({
   onSort,
   onTranslate,
   translate,
-  darkMode,
-  onDarkModeToggle,
+  theme,
+  onThemeToggle,
 }) {
   return (
     <div
-      className={`w-full shadow-md ${darkMode ? "bg-gray-700" : "bg-white"}`}
+      className={`w-full shadow-md ${
+        theme === "light" ? "bg-white" : "bg-gray-700"
+      }`}
     >
       <div className=" max-w-[120rem] m-auto py-4 flex flex-col gap-6 items-center justify-around sm:flex-row sm:gap-0">
         <div className="flex gap-2">
@@ -36,8 +38,11 @@ function NoteHeader({
         <h2 className="text-xl font-bold">
           {translate("myNotes")} ({notes.length})
         </h2>
-        <button className="border-2 p-1 rounded-lg" onClick={onDarkModeToggle}>
-          {darkMode ? (
+        <button
+          className="border-2 p-1 rounded-lg"
+          onClick={() => onThemeToggle(theme)}
+        >
+          {theme === "dark" ? (
             <SunIcon className="w-6 h-6 text-yellow-300" />
           ) : (
             <MoonIcon className="w-6 h-6 " />
@@ -45,7 +50,9 @@ function NoteHeader({
         </button>
         <select
           className={`border-2 border-gray-300  rounded-lg focus:ring-blue-500 p-2 ${
-            darkMode ? "bg-gray-700 text-zinc-50" : "bg-white text-gray-900"
+            theme === "dark"
+              ? "bg-gray-700 text-zinc-50"
+              : "bg-white text-gray-900"
           }`}
           value={sortBy}
           onChange={onSort}

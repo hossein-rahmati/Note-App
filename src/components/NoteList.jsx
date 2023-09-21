@@ -1,4 +1,4 @@
-function NoteList({ notes, onDelete, onCheck, sortBy, darkMode }) {
+function NoteList({ notes, onDelete, onCheck, sortBy, theme }) {
   let sortedNotes = notes;
 
   if (sortBy === "earliest")
@@ -24,7 +24,7 @@ function NoteList({ notes, onDelete, onCheck, sortBy, darkMode }) {
           note={n}
           onDelete={onDelete}
           onCheck={onCheck}
-          darkMode={darkMode}
+          theme={theme}
         />
       ))}
     </div>
@@ -33,7 +33,7 @@ function NoteList({ notes, onDelete, onCheck, sortBy, darkMode }) {
 
 export default NoteList;
 
-function NoteItem({ note, onDelete, onCheck, darkMode }) {
+function NoteItem({ note, onDelete, onCheck, theme }) {
   const options = {
     year: "numeric",
     month: "long",
@@ -43,7 +43,7 @@ function NoteItem({ note, onDelete, onCheck, darkMode }) {
   return (
     <div
       className={`flex flex-col gap-2 w-full  p-4 rounded-lg ${
-        darkMode ? "bg-gray-700" : "bg-white"
+        theme === "dark" ? "bg-gray-700" : "bg-white"
       }`}
     >
       {/* note item header */}

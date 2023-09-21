@@ -10,7 +10,8 @@ import { Toaster } from "react-hot-toast";
 // change direction based on language ✅
 // change the font ✅
 // change the toast ✅
-// add dark mode
+// add dark mode ✅
+// change toast style based on dark mode
 // fix responsive styles
 
 const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
@@ -39,8 +40,8 @@ function noteReducer(state, action) {
 function App() {
   const [notes, dispatch] = useReducer(noteReducer, INITIAL_STATE);
   const [sortBy, setSortBy] = useState("latest");
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") || false
+  const [theme, setTheme] = useState(
+    JSON.parse(localStorage.getItem("theme")) || "light"
   );
   const { t, i18n } = useTranslation();
 
@@ -54,8 +55,8 @@ function App() {
   }, [i18n, i18n.language]);
 
   useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
 
   const handleAddNote = (newNote) => {
     dispatch({ type: "add", payload: newNote });
@@ -71,12 +72,16 @@ function App() {
     i18n.changeLanguage(code);
     localStorage.setItem("lang", code);
   };
-  const handleDarkModeToggle = () => {
-    setDarkMode((prev) => !prev);
+  const handlethemeToggle = (theme) => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
   };
 
   return (
-    <div className={`font-sans ${darkMode ? "dark" : ""}`}>
+    <div className={`font-sans ${theme === "light" ? "" : "dark"}`}>
       <Toaster />
       {/* Header component */}
       <NoteHeader
@@ -85,8 +90,8 @@ function App() {
         onSort={(e) => setSortBy(e.target.value)}
         onTranslate={handleTranslate}
         translate={t}
-        darkMode={darkMode}
-        onDarkModeToggle={handleDarkModeToggle}
+        theme={theme}
+        onThemeToggle={handlethemeToggle}
       />
 
       {/* body components */}
@@ -95,11 +100,7 @@ function App() {
       >
         {/* new note form */}
         <div>
-          <AddNewNote
-            onAddNote={handleAddNote}
-            translate={t}
-            darkMode={darkMode}
-          />
+          <AddNewNote onAddNote={handleAddNote} translate={t} theme={theme} />
         </div>
         {/* note list container */}
         <div className="flex-1 max-w-3xl">
@@ -109,7 +110,7 @@ function App() {
             sortBy={sortBy}
             onDelete={handleDeleteNote}
             onCheck={handleCheckNote}
-            darkMode={darkMode}
+            theme={theme}
           />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 
-function AddNewNote({ onAddNote, translate, darkMode }) {
+function AddNewNote({ onAddNote, translate, theme }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const handleSubmit = (e) => {
@@ -34,7 +34,7 @@ function AddNewNote({ onAddNote, translate, darkMode }) {
           onChange={(e) => setTitle(e.target.value)}
           placeholder={translate("addNewNote.titlePlaceHolder")}
           className={`p-2 rounded-md font-medium ${
-            darkMode ? "bg-gray-700" : ""
+            theme === "dark" ? "bg-gray-700" : ""
           }`}
           type="text"
         />
@@ -43,7 +43,7 @@ function AddNewNote({ onAddNote, translate, darkMode }) {
           onChange={(e) => setDescription(e.target.value)}
           placeholder={translate("addNewNote.descritptionPlaceHolder")}
           className={`p-2 rounded-md font-medium ${
-            darkMode ? "bg-gray-700" : ""
+            theme === "dark" ? "bg-gray-700" : ""
           }`}
           type="text"
         />
