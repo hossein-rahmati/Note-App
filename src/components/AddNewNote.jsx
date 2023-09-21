@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import "react-toastify/dist/ReactToastify.css";
 
 function AddNewNote({ onAddNote, translate, theme }) {
   const [title, setTitle] = useState("");
