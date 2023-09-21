@@ -6,14 +6,6 @@ import NoteHeader from "./components/NoteHeader";
 import { useTranslation } from "react-i18next";
 import { Toaster } from "react-hot-toast";
 
-//TODO:
-// change direction based on language ✅
-// change the font ✅
-// change the toast ✅
-// add dark mode ✅
-// change toast style based on dark mode ✅
-// fix responsive styles
-
 const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
 function noteReducer(state, action) {
   switch (action.type) {

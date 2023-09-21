@@ -10,9 +10,9 @@ function NoteStatus({ notes, translate }) {
   return (
     <ul className="flex items-center justify-between py-2 px-6 w-full opacity-50 font-semibold mb-4 text-xs sm:text-base">
       <li>
-        {translate("status.incomplete")}{" "}
+        {translate("status.all")}{" "}
         <span className="bg-slate-600 text-white px-2 py-0.5 rounded-full">
-          {openNotes}
+          {allNotes}
         </span>
       </li>
       <li>
@@ -22,9 +22,9 @@ function NoteStatus({ notes, translate }) {
         </span>
       </li>
       <li>
-        {translate("status.all")}{" "}
+        {translate("status.incomplete")}{" "}
         <span className="bg-slate-600 text-white px-2 py-0.5 rounded-full">
-          {allNotes}
+          {openNotes}
         </span>
       </li>
     </ul>
