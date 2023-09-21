@@ -11,7 +11,7 @@ import { Toaster } from "react-hot-toast";
 // change the font ✅
 // change the toast ✅
 // add dark mode ✅
-// change toast style based on dark mode
+// change toast style based on dark mode ✅
 // fix responsive styles
 
 const INITIAL_STATE = JSON.parse(localStorage.getItem("notes")) || [];
@@ -82,7 +82,20 @@ function App() {
 
   return (
     <div className={`font-sans ${theme === "light" ? "" : "dark"}`}>
-      <Toaster />
+      {theme === "light" ? (
+        <Toaster />
+      ) : (
+        <Toaster
+          toastOptions={{
+            duration: 3000,
+            style: {
+              backgroundColor: "#1f2937",
+              color: "#fff",
+            },
+          }}
+        />
+      )}
+
       {/* Header component */}
       <NoteHeader
         notes={notes}

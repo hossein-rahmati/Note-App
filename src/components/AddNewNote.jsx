@@ -8,7 +8,7 @@ function AddNewNote({ onAddNote, translate, theme }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !description) {
-      toast.error(translate("addNewNote.toastInfo"));
+      toast.error(translate("addNewNote.toastInfo"), { id: 1 });
       return;
     }
     const newNote = {
@@ -22,7 +22,7 @@ function AddNewNote({ onAddNote, translate, theme }) {
     onAddNote(newNote);
     setDescription("");
     setTitle("");
-    toast.success(translate("addNewNote.toastSuccess"));
+    toast.success(translate("addNewNote.toastSuccess"), { id: 2 });
   };
 
   return (
