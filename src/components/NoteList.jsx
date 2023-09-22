@@ -3,17 +3,17 @@ function NoteList({ notes, onDelete, onCheck, sortBy, theme }) {
 
   if (sortBy === "earliest")
     sortedNotes = [...notes].sort(
-      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
 
   if (sortBy === "latest")
     sortedNotes = [...notes].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
     );
 
   if (sortBy === "completed")
     sortedNotes = [...notes].sort(
-      (a, b) => Number(a.completed) - Number(b.completed)
+      (a, b) => Number(b.completed) - Number(a.completed)
     );
 
   return (
