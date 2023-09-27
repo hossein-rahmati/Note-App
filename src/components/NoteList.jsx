@@ -1,4 +1,7 @@
-function NoteList({ notes, onDelete, onCheck, sortBy, theme }) {
+import { useDispatchNotes, useNotes } from "../context/NotesContext";
+
+function NoteList({ sortBy, theme }) {
+  const { notes } = useNotes();
   let sortedNotes = notes;
 
   if (sortBy === "earliest")
@@ -19,13 +22,7 @@ function NoteList({ notes, onDelete, onCheck, sortBy, theme }) {
   return (
     <div className="space-y-5">
       {sortedNotes.map((n) => (
-        <NoteItem
-          key={n.id}
-          note={n}
-          onDelete={onDelete}
-          onCheck={onCheck}
-          theme={theme}
-        />
+        <NoteItem key={n.id} note={n} theme={theme} />
       ))}
     </div>
   );
@@ -33,7 +30,8 @@ function NoteList({ notes, onDelete, onCheck, sortBy, theme }) {
 
 export default NoteList;
 
-function NoteItem({ note, onDelete, onCheck, theme }) {
+function NoteItem({ note, theme }) {
+  const { dispatch } = useDispatchNotes();
   const options = {
     year: "numeric",
     month: "long",
@@ -59,14 +57,21 @@ function NoteItem({ note, onDelete, onCheck, theme }) {
           </p>
         </div>
         <div className="flex gap-4">
-          <button onClick={() => onDelete(note.id)}>❌</button>
+          <button
+            onClick={() => dispatch({ type: "delete", payload: note.id })}
+          >
+            ❌
+          </button>
           <input
-            onChange={onCheck}
             className="w-5 h-5 cursor-pointer"
             type="checkbox"
             id={note.id}
             checked={note.completed}
             value={note.id}
+            onChange={(e) => {
+              const noteId = Number(e.target.value);
+              dispatch({ type: "check", payload: noteId });
+            }}
           />
         </div>
       </div>

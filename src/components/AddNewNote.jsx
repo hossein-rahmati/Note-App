@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatchNotes } from "../context/NotesContext";
 
-function AddNewNote({ onAddNote, translate, theme }) {
+function AddNewNote({ translate, theme }) {
+  const { dispatch } = useDispatchNotes();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const handleSubmit = (e) => {
@@ -18,7 +20,7 @@ function AddNewNote({ onAddNote, translate, theme }) {
       createdAt: new Date().toISOString(),
     };
 
-    onAddNote(newNote);
+    dispatch({ type: "add", payload: newNote });
     setDescription("");
     setTitle("");
     toast.success(translate("addNewNote.toastSuccess"), { id: 2 });

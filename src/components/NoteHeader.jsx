@@ -1,4 +1,5 @@
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+import { useNotes } from "../context/NotesContext";
 
 const languages = [
   { code: "en", native: "English" },
@@ -6,7 +7,6 @@ const languages = [
 ];
 
 function NoteHeader({
-  notes,
   sortBy,
   onSort,
   onTranslate,
@@ -14,6 +14,7 @@ function NoteHeader({
   theme,
   onThemeToggle,
 }) {
+  const { notes } = useNotes();
   return (
     <div
       className={`w-full shadow-md ${
