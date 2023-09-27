@@ -53,8 +53,6 @@ function App() {
         )}
 
         <NoteHeader
-          sortBy={sortBy}
-          onSort={(e) => setSortBy(e.target.value)}
           onTranslate={handleTranslate}
           translate={t}
           theme={theme}
@@ -67,7 +65,12 @@ function App() {
             <AddNewNote translate={t} theme={theme} />
           </div>
           <div className="flex-1 max-w-3xl">
-            <NoteStatus translate={t} />
+            <NoteStatus
+              translate={t}
+              theme={theme}
+              sortBy={sortBy}
+              onSort={(e) => setSortBy(e.target.value)}
+            />
             <NoteList sortBy={sortBy} theme={theme} />
           </div>
         </div>

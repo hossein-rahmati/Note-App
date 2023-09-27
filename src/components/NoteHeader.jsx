@@ -6,14 +6,7 @@ const languages = [
   { code: "fa", native: "فارسی" },
 ];
 
-function NoteHeader({
-  sortBy,
-  onSort,
-  onTranslate,
-  translate,
-  theme,
-  onThemeToggle,
-}) {
+function NoteHeader({ onTranslate, translate, theme, onThemeToggle }) {
   const { notes } = useNotes();
   return (
     <div
@@ -50,19 +43,6 @@ function NoteHeader({
               <MoonIcon className="w-6 h-6 " />
             )}
           </button>
-          <select
-            className={`border-2 border-gray-300  rounded-lg focus:ring-blue-500 p-2 ${
-              theme === "dark"
-                ? "bg-gray-700 text-zinc-50"
-                : "bg-white text-gray-900"
-            }`}
-            value={sortBy}
-            onChange={onSort}
-          >
-            <option value="latest">{translate("sort.earliest")}</option>
-            <option value="earliest">{translate("sort.latest")}</option>
-            <option value="completed">{translate("sort.completed")}</option>
-          </select>
         </div>
       </div>
     </div>
