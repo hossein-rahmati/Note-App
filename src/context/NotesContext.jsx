@@ -10,18 +10,31 @@ function noteReducer(state, action) {
       return [...state, action.payload];
     }
 
-    case "delete":
-      return state.filter((n) => n.id !== action.payload);
+    case "edit": {
+      return state.map((note) => {
+        if (note.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return note;
+        }
+      });
+    }
 
-    case "check":
+    case "delete": {
+      return state.filter((n) => n.id !== action.payload);
+    }
+
+    case "check": {
       return state.map((note) =>
         note.id === action.payload
           ? { ...note, completed: !note.completed }
           : note
       );
+    }
 
-    default:
+    default: {
       throw new Error("unknown action " + action.type);
+    }
   }
 }
 

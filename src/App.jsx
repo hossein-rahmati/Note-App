@@ -75,7 +75,7 @@ function App() {
               sortBy={sortBy}
               onSort={(e) => setSortBy(e.target.value)}
             />
-            <NoteList sortBy={sortBy} theme={theme} />
+            <NoteList sortBy={sortBy} theme={theme} translate={t} />
           </div>
         </div>
       </div>

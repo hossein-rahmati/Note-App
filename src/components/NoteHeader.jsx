@@ -10,7 +10,7 @@ function NoteHeader({ onTranslate, translate, theme, onThemeToggle }) {
       }`}
     >
       <div className=" max-w-6xl m-auto flex flex-row items-center gap-4 py-6 lg:px-8 justify-around lg:justify-between">
-        <h2 className="font-bold sm:text-xl">
+        <h2 className="font-semibold sm:text-xl">
           {translate("myNotes")} ({notes.length})
         </h2>
         <div className="flex gap-2">
@@ -20,8 +20,12 @@ function NoteHeader({ onTranslate, translate, theme, onThemeToggle }) {
               theme === "light" ? "bg-white" : "bg-gray-700"
             }`}
           >
-            <option value="en">English</option>
-            <option value="fa">فارسی</option>
+            <option className="hover:bg-blue-500" value="en">
+              English
+            </option>
+            <option className="hover:bg-blue-500" value="fa">
+              فارسی
+            </option>
           </select>
           <button
             className="border-2 p-1 rounded-lg"
