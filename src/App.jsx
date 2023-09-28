@@ -14,6 +14,7 @@ function App() {
   );
   const { t, i18n } = useTranslation();
 
+  //Effects
   useEffect(() => {
     const dir = i18n.dir(i18n.language);
     document.documentElement.dir = dir;
@@ -23,10 +24,13 @@ function App() {
     localStorage.setItem("theme", JSON.stringify(theme));
   }, [theme]);
 
+  //Handlers
   const handleTranslate = (code) => {
+    console.log(code);
     i18n.changeLanguage(code);
     localStorage.setItem("lang", code);
   };
+
   const handlethemeToggle = (theme) => {
     if (theme === "light") {
       setTheme("dark");
@@ -59,12 +63,12 @@ function App() {
           onThemeToggle={handlethemeToggle}
         />
         <div
-          className={`container m-auto max-w-3xl min-h-screen flex flex-col justify-center gap-16 p-4 lg:flex-row `}
+          className={`container m-auto max-w-6xl min-h-screen flex flex-col justify-center gap-16 p-4 md:flex-row `}
         >
-          <div>
+          <div className="basis-2/5">
             <AddNewNote translate={t} theme={theme} />
           </div>
-          <div className="flex-1 max-w-3xl">
+          <div className="basis-3/5 max-w-3xl">
             <NoteStatus
               translate={t}
               theme={theme}

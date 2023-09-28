@@ -28,7 +28,9 @@ function AddNewNote({ translate, theme }) {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <h2 className="font-bold text-2xl">{translate("addNewNote.header")}</h2>
+      <h2 className="text-xl font-bold sm:text-2xl">
+        {translate("addNewNote.header")}
+      </h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <input
           value={title}

@@ -10,8 +10,8 @@ function NoteStatus({ translate, theme, sortBy, onSort }) {
   if (!allNotes) return <Message>{translate("status.empty")}</Message>;
 
   return (
-    <div className="flex flex-col py-2">
-      <ul className="flex items-center justify-between py-2 px-6 w-full opacity-50 font-semibold mb-4 text-xs sm:text-base">
+    <div className="flex flex-col pb-4">
+      <ul className="flex items-center justify-between py-2 px-2 w-full opacity-50  mb-4 text-xs sm:text-base">
         <li>
           {translate("status.all")}{" "}
           <span className="bg-slate-600 text-white px-2 py-0.5 rounded-full">

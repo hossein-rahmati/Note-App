@@ -1,11 +1,6 @@
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { useNotes } from "../context/NotesContext";
 
-const languages = [
-  { code: "en", native: "English" },
-  { code: "fa", native: "فارسی" },
-];
-
 function NoteHeader({ onTranslate, translate, theme, onThemeToggle }) {
   const { notes } = useNotes();
   return (
@@ -14,25 +9,20 @@ function NoteHeader({ onTranslate, translate, theme, onThemeToggle }) {
         theme === "light" ? "bg-white" : "bg-gray-700"
       }`}
     >
-      <div className=" max-w-[100rem] m-auto flex flex-col items-center gap-4 py-6 sm:flex-row sm:justify-evenly">
-        <h2 className="text-xl font-bold sm:order-2">
+      <div className=" max-w-6xl m-auto flex flex-row items-center gap-4 py-6 lg:px-8 justify-around lg:justify-between">
+        <h2 className="font-bold sm:text-xl">
           {translate("myNotes")} ({notes.length})
         </h2>
-        <div className="flex gap-2 sm:order-1">
-          {languages.map((language, i) => {
-            const { code, native } = language;
-            return (
-              <button
-                className="border-2 py-1 px-3 rounded-lg lg:hover:bg-blue-600 lg:hover:text-white transition-all"
-                key={i}
-                onClick={() => onTranslate(code)}
-              >
-                {native}
-              </button>
-            );
-          })}
-        </div>
-        <div className="flex gap-2 sm:order-3">
+        <div className="flex gap-2">
+          <select
+            onChange={(e) => onTranslate(e.target.value)}
+            className={`border-2 p-1 rounded-lg outline-0 ${
+              theme === "light" ? "bg-white" : "bg-gray-700"
+            }`}
+          >
+            <option value="en">English</option>
+            <option value="fa">فارسی</option>
+          </select>
           <button
             className="border-2 p-1 rounded-lg"
             onClick={() => onThemeToggle(theme)}
