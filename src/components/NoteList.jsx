@@ -6,8 +6,10 @@ import {
 import { useDispatchNotes, useNotes } from "../context/NotesContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useTheme } from "../context/ThemeContext";
+import { useTranslate } from "../context/TranslateContext";
 
-function NoteList({ sortBy, theme, translate }) {
+function NoteList({ sortBy }) {
   const { notes } = useNotes();
   let sortedNotes = notes;
 
@@ -29,7 +31,7 @@ function NoteList({ sortBy, theme, translate }) {
   return (
     <div className="space-y-5">
       {sortedNotes.map((n) => (
-        <NoteItem key={n.id} note={n} theme={theme} translate={translate} />
+        <NoteItem key={n.id} note={n} />
       ))}
     </div>
   );
@@ -37,7 +39,9 @@ function NoteList({ sortBy, theme, translate }) {
 
 export default NoteList;
 
-function NoteItem({ note, theme, translate }) {
+function NoteItem({ note }) {
+  const { theme } = useTheme();
+  const { t } = useTranslate();
   const [isEditing, setIsEditing] = useState(false);
   const [updatedNote, setUpdatedNote] = useState(note);
   const { dispatch } = useDispatchNotes();
@@ -49,7 +53,7 @@ function NoteItem({ note, theme, translate }) {
 
   const handleEdit = () => {
     if (!updatedNote.title || !updatedNote.description) {
-      toast.error(translate("addNewNote.toastInfo"), { id: 1 });
+      toast.error(t("addNewNote.toastInfo"), { id: 1 });
       return;
     }
     setIsEditing((prev) => !prev);
@@ -104,37 +108,60 @@ function NoteItem({ note, theme, translate }) {
 
         {/* action section */}
         <div className="flex flex-col-reverse sm:flex-row pt-1 items-center gap-4 basis-1/6 rounded-lg">
-          <button
-            onClick={() => dispatch({ type: "delete", payload: note.id })}
-          >
-            <TrashIcon className="w-6 h-6 text-red-400" />
-          </button>
+          <DeleteButton dispatch={dispatch} note={note} />
           {isEditing ? (
-            <button onClick={() => handleEdit()}>
-              <CheckCircleIcon className="w-6 h-6 text-green-400" />
-            </button>
+            <ToggleEdit handleEdit={handleEdit} />
           ) : (
-            <button onClick={() => setIsEditing((prev) => !prev)}>
-              <PencilSquareIcon className="w-6 h-6 text-blue-400" />
-            </button>
+            <EditButton setIsEditing={setIsEditing} />
           )}
-          <input
-            className="w-5 h-5"
-            type="checkbox"
-            id={note.id}
-            checked={note.completed}
-            value={note.id}
-            onChange={(e) => {
-              const noteId = Number(e.target.value);
-              dispatch({ type: "check", payload: noteId });
-            }}
-          />
+          <CompleteButton note={note} dispatch={dispatch} />
         </div>
       </div>
+
       {/* note item footer */}
       <div className="text-center opacity-60">
         {new Date(note.createdAt).toLocaleDateString("en-US", options)}
       </div>
     </div>
+  );
+}
+
+function DeleteButton({ dispatch, note }) {
+  return (
+    <button onClick={() => dispatch({ type: "delete", payload: note.id })}>
+      <TrashIcon className="w-6 h-6 text-red-400" />
+    </button>
+  );
+}
+
+function ToggleEdit({ handleEdit }) {
+  return (
+    <button onClick={() => handleEdit()}>
+      <CheckCircleIcon className="w-6 h-6 text-green-400" />
+    </button>
+  );
+}
+
+function EditButton({ setIsEditing }) {
+  return (
+    <button onClick={() => setIsEditing((prev) => !prev)}>
+      <PencilSquareIcon className="w-6 h-6 text-blue-400" />
+    </button>
+  );
+}
+
+function CompleteButton({ note, dispatch }) {
+  return (
+    <input
+      className="w-5 h-5"
+      type="checkbox"
+      id={note.id}
+      checked={note.completed}
+      value={note.id}
+      onChange={(e) => {
+        const noteId = Number(e.target.value);
+        dispatch({ type: "check", payload: noteId });
+      }}
+    />
   );
 }

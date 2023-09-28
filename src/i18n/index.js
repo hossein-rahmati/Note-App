@@ -34,6 +34,7 @@ i18n.use(initReactI18next).init({
         },
       },
     },
+
     fa: {
       translation: {
         myNotes: "یادداشت های من",
