@@ -20,6 +20,7 @@ I've used:
 
 - vite to commence React-app
 - React library for the base of the app
+- Context and Reducer for stage management
 - Tailwind for styling
 - React-hot-toast for app notifications
 - React-118next for controlling multilingual
