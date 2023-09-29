@@ -38,6 +38,9 @@ function NoteHeader() {
               theme === "light" ? "bg-white" : "bg-gray-700"
             }`}
           >
+            <option disabled selected>
+              {t("language")}
+            </option>
             <option className="hover:bg-blue-500" value="en">
               English
             </option>

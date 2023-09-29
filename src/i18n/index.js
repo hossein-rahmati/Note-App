@@ -32,6 +32,7 @@ i18n.use(initReactI18next).init({
           incomplete: "Incomplete",
           all: "All",
         },
+        language: "language",
       },
     },
 
@@ -57,6 +58,7 @@ i18n.use(initReactI18next).init({
           incomplete: "تکمیل نشده",
           all: "همه",
         },
+        language: "زبان",
       },
     },
   },
